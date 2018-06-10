@@ -1,0 +1,150 @@
+﻿<Controls:MetroWindow x:Class="C_PowerShell.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
+        xmlns:local="clr-namespace:C_PowerShell"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        mc:Ignorable="d"
+        Title="" Height="500" Width="650" MinHeight="500" MinWidth="650"
+                      BorderBrush="{DynamicResource AccentColorBrush}"
+                      BorderThickness="1"
+        >
+
+
+
+    <Controls:MetroWindow.IconTemplate>
+
+        <DataTemplate>
+
+            <Grid Width="{TemplateBinding Width}"
+                 Height="{TemplateBinding Height}"
+                 Margin="4"
+                 Background="Transparent"
+                 RenderOptions.EdgeMode="Aliased"
+                 RenderOptions.BitmapScalingMode="HighQuality">
+                <Rectangle Fill="White">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Visual="{StaticResource appbar_box_layered}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Grid>
+        </DataTemplate>
+    </Controls:MetroWindow.IconTemplate>
+
+
+
+    <!--<StackPanel x:Name="controlContainer" >-->
+    <Grid x:Name="controlContainer">
+        <TabControl>
+
+            <TabItem Header="Bulk Reset">
+                <Grid Margin="5,0,5,0" Height="429">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+
+
+                    <Label x:Name="label1" Content="School Type:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10"/>
+                    <ComboBox x:Name="Schooltype_comboBox" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Center" Width="257" SelectionChanged="Schooltype_comboBox_SelectionChanged" Grid.Column="1" Grid.ColumnSpan="2" Height="28"/>
+                    <Button x:Name="getuserButton" Content="OK" Margin="10" VerticalAlignment="Center" Click="newuserbutton_Click" HorizontalAlignment="Right" IsEnabled="False" Width="100" Grid.Row="5" Grid.Column="4"/>
+
+                    <Label x:Name="label1_Copy" Content="School OU:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10" Grid.Row="1"/>
+                    <ComboBox x:Name="SchoolOUcomboBox" HorizontalAlignment="Left" Margin="0,10,0.6,10" VerticalAlignment="Center" SelectionChanged="SchoolOUcomboBox_SelectionChanged" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Height="28" Width="257"/>
+
+                    <Label x:Name="label1_Copy1" Content="User Type:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10" Grid.Row="2"/>
+                    <ComboBox x:Name="UserTypecomboBox" HorizontalAlignment="Left" Margin="0,33.6" VerticalAlignment="Center" Width="257" IsEnabled="True" SelectionChanged="UserTypecomboBox_SelectionChanged" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Height="28"/>
+                    
+                    <Label x:Name="label1_Copy2" Content="YOL OU:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10,6" Grid.Row="3"/>
+                    <ComboBox x:Name="YOLOUcomboBox" HorizontalAlignment="Left" Margin="0,33.6" VerticalAlignment="Center" Width="257" IsEnabled="False" SelectionChanged="YOLOUcomboBox_SelectionChanged" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Height="28"/>
+                    <CheckBox x:Name="NonAdcheckBox" Content="Non-AD Users" Grid.Column="4" HorizontalAlignment="Left" Margin="10.4,18,0,0" VerticalAlignment="Top" Checked="NonAdcheckBox_Checked" Unchecked="NonAdcheckBox_Unchecked"/>
+
+
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="PWreset" Header="Password Reset">
+                <Grid  Margin="5,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+
+                    <TextBlock x:Name="textBlock" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Passwords must be 6 or more characters in length, any passwords fields left blank will be skipped and any incorrectly spelt usernames will fail." VerticalAlignment="Center" Margin="20,10,0,10" Width="384" Grid.ColumnSpan="2"/>
+
+
+
+
+                    <DataGrid Name="userdataGrid" Margin="0,0,0,50" ItemsSource="{Binding}" SelectionUnit="Cell" AutoGenerateColumns="True" CanUserAddRows="false" Grid.Row="1" Grid.ColumnSpan="2"/>
+                    <Button x:Name="ClearPW" Content="Clear" Margin="0,10,10.2,0" Click="ClearPW_Click_1" Grid.Column="1" HorizontalAlignment="Right" Width="100" Height="32" VerticalAlignment="Top"/>
+                    <Button x:Name="PopulateBtn" Content="Populate" Margin="0,10,115,0" HorizontalAlignment="right" VerticalAlignment="top" Click="PopulateBtn_Click_1" Width="100" Grid.Column="1"/>
+
+                    <ProgressBar Minimum="0" Maximum="100" Name="pbStatus" Height="22" Margin="0,0,115.2,10" VerticalAlignment="Bottom" Grid.Row="1" Grid.ColumnSpan="2"/>
+                    <Button x:Name="ChangePassBtn" Content="Run" Margin="0,10,10.2,5" Click="ChangePassBtn_Click_1" HorizontalAlignment="Right" Width="100" Height="32" VerticalAlignment="Bottom" Grid.Row="1" Grid.ColumnSpan="2"/>
+
+                </Grid>
+
+            </TabItem>
+            <TabItem Header="Querying" Visibility="Hidden">
+                <Grid  Margin="5,0,4.6,0" Height="423">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+
+
+                    <Label x:Name="label" Content="Computer Name:" Grid.Column="0" Margin="10" VerticalAlignment="Center"/>
+                    <TextBox x:Name="textBox1" Grid.Column="1" Grid.ColumnSpan="2"  VerticalAlignment="Center"/>
+                    <Button x:Name="Button" Content="OK" Grid.Column="3" VerticalAlignment="Top" HorizontalAlignment="Right" Width="100" Margin="10" Click="button_Click"/>
+
+                    <RichTextBox x:Name="richTextBox" Margin="0,10,0,0" VerticalScrollBarVisibility="Auto" Background="#FF3F51B5" FontFamily="Microsoft Sans Serif" Foreground="Snow" Grid.Row="2" Grid.ColumnSpan="4">
+                        <FlowDocument>
+                            <Paragraph>
+                                <Run Text="RichTextBox"/>
+                            </Paragraph>
+                        </FlowDocument>
+                    </RichTextBox>
+                    <RadioButton x:Name="Sccm_Client_Version" Content="Sccm Client Version" VerticalAlignment="Top" Grid.Row="1" Grid.Column="1" Margin="10" HorizontalAlignment="Center"/>
+                    <RadioButton x:Name="radioButton_serial" Content="Serial Number" VerticalAlignment="Top" IsChecked="True" Grid.Row="1" Grid.Column="0" Margin="10"/>
+                    <RadioButton x:Name="radioButton_services" Content="Services" VerticalAlignment="Top" Grid.Row="1" Grid.Column="2" Margin="10" HorizontalAlignment="Center"/>
+                    <RadioButton x:Name="radioButton_lastLogon" Content="Last Logon" VerticalAlignment="Top" IsChecked="True" Grid.Row="1" Grid.Column="3" Margin="10"/>
+
+
+
+                </Grid>
+            </TabItem >
+        </TabControl>
+
+
+
+
+    </Grid>
+
+    <!--</StackPanel>-->
+</Controls:MetroWindow>
